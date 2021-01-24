@@ -45,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/image/**").permitAll()
+				// .antMatchers("/static/**").permitAll()
+				.antMatchers("/upload").permitAll()
 				.antMatchers(HttpMethod.OPTIONS,"/**").anonymous()
 				.anyRequest().authenticated() // 剩下所有都需要验证
 				.and()

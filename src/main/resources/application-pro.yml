@@ -1,0 +1,21 @@
+# 生产环境
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/zazbug?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: root
+server:
+  port: 18088
+jwt:
+  secret: secret
+  expiration: 7200000
+  token:
+web:
+  # 上传图片路径
+  upload-path: "D:/Temp/upload/"
+  # 请求路径
+  http-path: "/image/**"
+  # 映射路径
+  file-path: "file:D:/Temp/upload/"
+
