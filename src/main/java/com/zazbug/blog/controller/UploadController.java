@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.net.InetAddress;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +23,9 @@ public class UploadController {
 
 	@Value("${web.upload-path}")
 	private String uploadPath;
+
+	@Value("${server.port}")
+	private int port;
 
 	@PostMapping("/upload")
 	public Result upload(@RequestParam("file")MultipartFile file, HttpServletRequest httpServletRequest){
@@ -40,7 +44,14 @@ public class UploadController {
 			destFile.getParentFile().mkdirs();
 			// 把上传的文件复制到希望的位置
 			file.transferTo(destFile);
-			return new Result(true,StatusCode.OK,"上传成功",fileName);
+			String ipPortFilename = fileName;
+			try {
+				InetAddress localHost = InetAddress.getLocalHost();
+				ipPortFilename = "http://" + localHost.getHostAddress() + ":" + port + "/image/" + fileName;
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			return new Result(true,StatusCode.OK,"上传成功",ipPortFilename);
 
 		}catch (Exception e){
 			e.printStackTrace();
