@@ -10,7 +10,7 @@ server:
 jwt:
   secret: secret
   expiration: 7200000
-  token:
+  token: Authorization
 web:
   # 上传图片路径
   upload-path: "D:/Temp/upload/"

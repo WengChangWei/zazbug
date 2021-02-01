@@ -1,5 +1,7 @@
 package com.zazbug.blog.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -18,8 +20,11 @@ public class Images {
 	private int cateId;
 	@Column(name = "isShow")
 	private String isShow;
+	@JsonFormat(timezone = "GMT+8", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "addTime")
 	private Date addTime;
+
+	private Category category;
 
 	public int getId() {
 		return id;
@@ -59,5 +64,13 @@ public class Images {
 
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 }

@@ -3,10 +3,13 @@ package com.zazbug.blog.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zazbug.blog.mapper.ImagesMapper;
+import com.zazbug.blog.pojo.Category;
 import com.zazbug.blog.pojo.Images;
+import com.zazbug.blog.service.CategoryService;
 import com.zazbug.blog.service.ImagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +18,9 @@ public class ImagesServiceImpl implements ImagesService {
 
 	@Autowired
 	private ImagesMapper imagesMapper;
+
+	@Autowired
+	private CategoryService categoryService;
 
 	@Override
 	public List<Images> findAll() {
@@ -44,6 +50,14 @@ public class ImagesServiceImpl implements ImagesService {
 	@Override
 	public PageInfo<Images> findPage(int page, int size) {
 		PageHelper.startPage(page,size);
-		return new PageInfo<Images>(imagesMapper.selectAll());
+		Example example = new Example(Images.class);
+		example.setOrderByClause("id desc");
+		// List<Images> images = imagesMapper.selectAll();
+		List<Images> images = imagesMapper.selectByExample(example);
+		for (Images image : images) {
+			Category category = categoryService.findById(image.getCateId());
+			image.setCategory(category);
+		}
+		return new PageInfo<Images>(images);
 	}
 }

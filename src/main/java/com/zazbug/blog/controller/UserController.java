@@ -22,10 +22,12 @@ public class UserController {
 		return new Result<User>(true, StatusCode.OK,"查询成功",userServiceByUsername);
 	}
 
-	@PostMapping(value = "/getUserInfo")
+	@GetMapping
 	public Result getUserInfo(){
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return new Result(true, StatusCode.OK,"当前用户:"+userDetails.getUsername());
+		String username = userDetails.getUsername();
+		User userServiceByUsername = userService.findByUsername(username);
+		return new Result(true, StatusCode.OK,"获取成功",userServiceByUsername);
 	}
 
 }

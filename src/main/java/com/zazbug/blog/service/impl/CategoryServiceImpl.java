@@ -7,6 +7,7 @@ import com.zazbug.blog.pojo.Category;
 import com.zazbug.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public PageInfo<Category> findPage(int page, int size) {
 		PageHelper.startPage(page,size);
-		return new PageInfo<Category>(categoryMapper.selectAll());
+		Example example = new Example(Category.class);
+		example.setOrderByClause("id desc");
+		return new PageInfo<Category>(categoryMapper.selectByExample(example));
 	}
 }
