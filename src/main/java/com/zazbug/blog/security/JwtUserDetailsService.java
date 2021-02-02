@@ -15,7 +15,7 @@ import java.util.List;
 public class JwtUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println(username);
+		// System.out.println(username);
 		List<GrantedAuthority> authorityList = new ArrayList<>();
 		authorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		return new SecurityUserDetails(username,authorityList);

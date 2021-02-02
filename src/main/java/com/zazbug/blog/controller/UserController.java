@@ -30,4 +30,10 @@ public class UserController {
 		return new Result(true, StatusCode.OK,"获取成功",userServiceByUsername);
 	}
 
+	@PutMapping
+	public Result update(@RequestBody User user){
+		userService.update(user);
+		return new Result(true, StatusCode.OK,"修改成功");
+	}
+
 }
