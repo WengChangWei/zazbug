@@ -29,6 +29,18 @@ public class User {
 	@Column(name = "headPic")
 	private String headPic;
 
+	@Column(name = "introduce")
+	private String introduce;
+
+	@Column(name = "nickname")
+	private String nickname;
+
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "QQ")
+	private String QQ;
+
 	private Collection<? extends GrantedAuthority> authorities;
 
 
@@ -79,5 +91,37 @@ public class User {
 
 	public void setHeadPic(String headPic) {
 		this.headPic = headPic;
+	}
+
+	public String getIntroduce() {
+		return introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getQQ() {
+		return QQ;
+	}
+
+	public void setQQ(String QQ) {
+		this.QQ = QQ;
 	}
 }

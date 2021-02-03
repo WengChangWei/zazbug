@@ -17,4 +17,6 @@ public interface ImagesService {
 
 	public PageInfo<Images> findPage(int page, int size);
 
+	public PageInfo<Images> findPage(Images images, int page, int size);
+
 }

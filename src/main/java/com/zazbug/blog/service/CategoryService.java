@@ -17,4 +17,8 @@ public interface CategoryService {
 
 	public PageInfo<Category> findPage(int page, int size);
 
+	public PageInfo<Category> findPage(Category category, int page, int size);
+
+	public List<Category> findAllAndChildren();
+
 }

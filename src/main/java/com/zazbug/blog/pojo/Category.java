@@ -3,6 +3,8 @@ package com.zazbug.blog.pojo;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "df_category")
 public class Category {
@@ -21,6 +23,8 @@ public class Category {
 
 	@Column(name = "parentId")
 	private int parentId;
+
+	private List<Category> children;
 
 	public int getId() {
 		return id;
@@ -60,5 +64,14 @@ public class Category {
 
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
+	}
+
+
+	public List<Category> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Category> children) {
+		this.children = children;
 	}
 }

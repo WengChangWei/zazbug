@@ -3,12 +3,14 @@ package com.zazbug.blog.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zazbug.blog.mapper.ImagesMapper;
+import com.zazbug.blog.pojo.Book;
 import com.zazbug.blog.pojo.Category;
 import com.zazbug.blog.pojo.Images;
 import com.zazbug.blog.service.CategoryService;
 import com.zazbug.blog.service.ImagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
@@ -59,5 +61,22 @@ public class ImagesServiceImpl implements ImagesService {
 			image.setCategory(category);
 		}
 		return new PageInfo<Images>(images);
+	}
+
+	@Override
+	public PageInfo<Images> findPage(Images images, int page, int size) {
+		PageHelper.startPage(page,size);
+		List<Images> imagesList = imagesMapper.selectByExample(createExample(images));
+		return new PageInfo<Images>(imagesList);
+	}
+
+	private Example createExample(Images images){
+		Example example = new Example(Images.class);
+		Example.Criteria criteria = example.createCriteria();
+		if(images == null) return example;
+		example.setOrderByClause("id desc");
+		if(StringUtils.isEmpty(images.getIsShow())) criteria.andEqualTo("isShow",images.getIsShow());
+		if(StringUtils.isEmpty(images.getCateId())) criteria.andEqualTo("cateId",images.getCateId());
+		return example;
 	}
 }

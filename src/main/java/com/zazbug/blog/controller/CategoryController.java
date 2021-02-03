@@ -30,6 +30,12 @@ public class CategoryController {
 		return new Result<List<Category>>(true, StatusCode.OK,"查询成功",all);
 	}
 
+	@GetMapping(value = "/findAllAndChildren")
+	public Result findAllAndChildren(){
+		List<Category> allAndChildren = categoryService.findAllAndChildren();
+		return new Result<List<Category>>(true, StatusCode.OK,"查询成功",allAndChildren);
+	}
+
 	/**
 	 * 添加分类
 	 * @param category
@@ -75,6 +81,16 @@ public class CategoryController {
 	public Result findPage(@PathVariable int page, @PathVariable int size){
 		PageInfo<Category> pageInfo = categoryService.findPage(page, size);
 		return new Result(true, StatusCode.OK,"查询成功",pageInfo);
+	}
+
+	/**
+	 * 查询分类所属下级分类
+	 * @param parentId
+	 * @return
+	 */
+	@GetMapping(value = "/byParentId/{parentId}")
+	public Result<Category> findByParentId(@PathVariable int parentId){
+		return null;
 	}
 
 }
