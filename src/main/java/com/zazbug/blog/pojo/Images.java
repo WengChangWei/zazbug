@@ -16,15 +16,19 @@ public class Images {
 	private int id;
 	@Column(name = "url")
 	private String url;
-	@Column(name = "cateId")
-	private int cateId;
+	@Column(name = "cateId1")
+	private int cateId1;
+	@Column(name = "cateId2")
+	private int cateId2;
 	@Column(name = "isShow")
 	private String isShow;
 	@JsonFormat(timezone = "GMT+8", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "addTime")
 	private Date addTime;
 
-	private Category category;
+	private Category categoryByOne;
+
+	private Category categoryByTwo;
 
 	public int getId() {
 		return id;
@@ -42,13 +46,6 @@ public class Images {
 		this.url = url;
 	}
 
-	public int getCateId() {
-		return cateId;
-	}
-
-	public void setCateId(int cateId) {
-		this.cateId = cateId;
-	}
 
 	public String getIsShow() {
 		return isShow;
@@ -66,11 +63,35 @@ public class Images {
 		this.addTime = addTime;
 	}
 
-	public Category getCategory() {
-		return category;
+	public int getCateId1() {
+		return cateId1;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCateId1(int cateId1) {
+		this.cateId1 = cateId1;
+	}
+
+	public int getCateId2() {
+		return cateId2;
+	}
+
+	public void setCateId2(int cateId2) {
+		this.cateId2 = cateId2;
+	}
+
+	public Category getCategoryByOne() {
+		return categoryByOne;
+	}
+
+	public void setCategoryByOne(Category categoryByOne) {
+		this.categoryByOne = categoryByOne;
+	}
+
+	public Category getCategoryByTwo() {
+		return categoryByTwo;
+	}
+
+	public void setCategoryByTwo(Category categoryByTwo) {
+		this.categoryByTwo = categoryByTwo;
 	}
 }

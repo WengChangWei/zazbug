@@ -20,8 +20,12 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<Category> findAll() {
-		List<Category> categories = categoryMapper.selectAll();
-		return categories;
+		// List<Category> categories = categoryMapper.selectAll();
+		Category category = new Category();
+		category.setParentId(0);
+		List<Category> categories = categoryMapper.selectByExample(createExample(category));
+		List<Category> children = findChildren(categories, category);
+		return children;
 	}
 
 	@Override
@@ -37,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void update(Category category) {
-		categoryMapper.updateByPrimaryKey(category);
+		categoryMapper.updateByPrimaryKeySelective(category);
 	}
 
 	@Override
@@ -45,7 +49,18 @@ public class CategoryServiceImpl implements CategoryService {
 		PageHelper.startPage(page,size);
 		Example example = new Example(Category.class);
 		example.setOrderByClause("id desc");
-		return new PageInfo<Category>(categoryMapper.selectByExample(example));
+		List<Category> categories = categoryMapper.selectByExample(example);
+		for (Category category : categories) {
+			if(category.getParentId() > 0){
+				Category byId = findById(category.getParentId());
+				category.setParentCate(byId);
+			}else{
+				Category category1 = new Category();
+				category1.setName("顶级分类");
+				category.setParentCate(category1);
+			}
+		}
+		return new PageInfo<Category>(categories);
 	}
 
 	@Override
@@ -60,6 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<Category> findAllAndChildren(){
 		Category category = new Category();
 		category.setParentId(0);
+		category.setIsShow("1");
 		// 一级分类
 		List<Category> categories = categoryMapper.selectByExample(createExample(category));
 		// 二级分类
@@ -87,7 +103,7 @@ public class CategoryServiceImpl implements CategoryService {
 		example.setOrderByClause("sort desc");
 		Example.Criteria criteria = example.createCriteria();
 		if(category == null) return example;
-		if(StringUtils.isEmpty(category.getIsShow())) criteria.andEqualTo("isShow",category.getIsShow());
+		if("0".equals(String.valueOf(category.getIsShow())) || "1".equals(String.valueOf(category.getIsShow()))) criteria.andEqualTo("isShow",category.getIsShow());
 		if("0".equals(String.valueOf(category.getParentId())) || "null".equals(String.valueOf(category.getParentId())) || category.getParentId() > 0) criteria.andEqualTo("parentId",category.getParentId());
 		return example;
 	}

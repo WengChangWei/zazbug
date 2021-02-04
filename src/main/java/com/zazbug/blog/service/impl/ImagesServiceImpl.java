@@ -46,7 +46,7 @@ public class ImagesServiceImpl implements ImagesService {
 
 	@Override
 	public void update(Images images) {
-		imagesMapper.updateByPrimaryKey(images);
+		imagesMapper.updateByPrimaryKeySelective(images);
 	}
 
 	@Override
@@ -57,8 +57,10 @@ public class ImagesServiceImpl implements ImagesService {
 		// List<Images> images = imagesMapper.selectAll();
 		List<Images> images = imagesMapper.selectByExample(example);
 		for (Images image : images) {
-			Category category = categoryService.findById(image.getCateId());
-			image.setCategory(category);
+			Category category = categoryService.findById(image.getCateId1());
+			image.setCategoryByOne(category);
+			Category cateTwo = categoryService.findById(image.getCateId2());
+			image.setCategoryByTwo(cateTwo);
 		}
 		return new PageInfo<Images>(images);
 	}
@@ -76,7 +78,7 @@ public class ImagesServiceImpl implements ImagesService {
 		if(images == null) return example;
 		example.setOrderByClause("id desc");
 		if(StringUtils.isEmpty(images.getIsShow())) criteria.andEqualTo("isShow",images.getIsShow());
-		if(StringUtils.isEmpty(images.getCateId())) criteria.andEqualTo("cateId",images.getCateId());
+		if(StringUtils.isEmpty(images.getCateId1())) criteria.andEqualTo("cateId",images.getCateId1());
 		return example;
 	}
 }

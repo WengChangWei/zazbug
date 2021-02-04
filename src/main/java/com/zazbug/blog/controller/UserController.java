@@ -36,4 +36,13 @@ public class UserController {
 		return new Result(true, StatusCode.OK,"修改成功");
 	}
 
+	@PutMapping(value = "/updateUserInfo")
+	public Result updateUserInfo(@RequestBody User user){
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = userDetails.getUsername();
+		user.setUsername(username);
+		userService.update(user);
+		return new Result(true, StatusCode.OK,"修改成功");
+	}
+
 }

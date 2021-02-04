@@ -38,8 +38,8 @@ public class User {
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "QQ")
-	private String QQ;
+	@Column(name = "qq")
+	private String qq;
 
 	private Collection<? extends GrantedAuthority> authorities;
 
@@ -117,11 +117,11 @@ public class User {
 		this.email = email;
 	}
 
-	public String getQQ() {
-		return QQ;
+	public String getQq() {
+		return qq;
 	}
 
-	public void setQQ(String QQ) {
-		this.QQ = QQ;
+	public void setQq(String qq) {
+		this.qq = qq;
 	}
 }

@@ -24,6 +24,8 @@ public class Category {
 	@Column(name = "parentId")
 	private int parentId;
 
+	private Category parentCate;
+
 	private List<Category> children;
 
 	public int getId() {
@@ -73,5 +75,13 @@ public class Category {
 
 	public void setChildren(List<Category> children) {
 		this.children = children;
+	}
+
+	public Category getParentCate() {
+		return parentCate;
+	}
+
+	public void setParentCate(Category parentCate) {
+		this.parentCate = parentCate;
 	}
 }
