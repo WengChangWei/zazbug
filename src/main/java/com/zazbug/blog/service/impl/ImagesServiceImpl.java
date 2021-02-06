@@ -69,6 +69,7 @@ public class ImagesServiceImpl implements ImagesService {
 	public PageInfo<Images> findPage(Images images, int page, int size) {
 		PageHelper.startPage(page,size);
 		List<Images> imagesList = imagesMapper.selectByExample(createExample(images));
+
 		return new PageInfo<Images>(imagesList);
 	}
 
@@ -77,8 +78,8 @@ public class ImagesServiceImpl implements ImagesService {
 		Example.Criteria criteria = example.createCriteria();
 		if(images == null) return example;
 		example.setOrderByClause("id desc");
-		if(StringUtils.isEmpty(images.getIsShow())) criteria.andEqualTo("isShow",images.getIsShow());
-		if(StringUtils.isEmpty(images.getCateId1())) criteria.andEqualTo("cateId",images.getCateId1());
+		if(!"null".equals(String.valueOf(images.getIsShow()))) criteria.andEqualTo("isShow",images.getIsShow());
+		if(!"0".equals(String.valueOf(images.getCateId2())) && images.getCateId2() > 0) criteria.andEqualTo("cateId2",images.getCateId2());
 		return example;
 	}
 }

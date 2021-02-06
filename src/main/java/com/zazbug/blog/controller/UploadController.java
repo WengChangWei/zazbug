@@ -1,5 +1,6 @@
 package com.zazbug.blog.controller;
 
+import com.zazbug.blog.entity.IpUtils;
 import com.zazbug.blog.entity.Result;
 import com.zazbug.blog.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,8 +28,11 @@ public class UploadController {
 	@Value("${server.port}")
 	private int port;
 
+	@Value(("${web.ip}"))
+	private String Ip;
+
 	@PostMapping("/upload")
-	public Result upload(@RequestParam("file")MultipartFile file, HttpServletRequest httpServletRequest){
+	public Result upload(@RequestParam("file")MultipartFile file){
 
 		Calendar calendar = Calendar.getInstance();
 		String year = String.valueOf(calendar.get(Calendar.YEAR));
@@ -46,8 +50,9 @@ public class UploadController {
 			file.transferTo(destFile);
 			String ipPortFilename = fileName;
 			try {
-				InetAddress localHost = InetAddress.getLocalHost();
-				ipPortFilename = "http://" + localHost.getHostAddress() + ":" + port + "/image/" + fileName;
+				// InetAddress localHost = InetAddress.getLocalHost();
+				// ipPortFilename = "http://" + localHost.getHostAddress() + ":" + port + "/image/" + fileName;
+				ipPortFilename = "http://" + Ip + ":" + port + "/image/" + fileName;
 			}catch (Exception e){
 				e.printStackTrace();
 			}

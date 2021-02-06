@@ -38,7 +38,7 @@ public class ClientController {
 	@GetMapping("/images/list/{cateId}/{page}/{size}")
 	public Result getImagesList(@PathVariable Integer cateId, @PathVariable Integer page, @PathVariable Integer size){
 		Images images = new Images();
-		images.setCateId1(cateId);
+		images.setCateId2(cateId);
 		images.setIsShow("1");
 		PageInfo<Images> imagesServicePage = imagesService.findPage(images, page, size);
 		return new Result(true, StatusCode.OK,"获取成功",imagesServicePage);

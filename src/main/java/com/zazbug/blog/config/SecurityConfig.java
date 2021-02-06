@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// .antMatchers("/category/**").permitAll() // 分类
 				// .antMatchers("/images/**").permitAll()
 				// .antMatchers("/images/findPage").permitAll()
+				// .antMatchers("/upload").permitAll()
 				.antMatchers("/client/**").permitAll()
 				.antMatchers(HttpMethod.OPTIONS,"/**").anonymous()
 				.anyRequest().authenticated() // 剩下所有都需要验证

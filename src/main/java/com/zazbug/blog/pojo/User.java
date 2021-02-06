@@ -41,6 +41,9 @@ public class User {
 	@Column(name = "qq")
 	private String qq;
 
+	@Column(name = "weibo")
+	private String weibo;
+
 	private Collection<? extends GrantedAuthority> authorities;
 
 
@@ -123,5 +126,13 @@ public class User {
 
 	public void setQq(String qq) {
 		this.qq = qq;
+	}
+
+	public String getWeibo() {
+		return weibo;
+	}
+
+	public void setWeibo(String weibo) {
+		this.weibo = weibo;
 	}
 }

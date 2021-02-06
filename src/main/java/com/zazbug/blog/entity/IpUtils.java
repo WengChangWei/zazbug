@@ -7,7 +7,42 @@ import java.util.Enumeration;
 public class IpUtils {
 	private static final String LOCAL_IP = "127.0.0.1";
 
+	public static String getMyIp(){
+		String localIp = null; // 本地IP,如果没有配置外网IP则返回它
+		String netIp = null; // 外网Ip
+
+		try {
+			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+			InetAddress ip = null;
+			boolean finded = false; // 是否找到外网Ip
+			while (interfaces.hasMoreElements() && !finded){
+				NetworkInterface networkInterface = interfaces.nextElement();
+				Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+				while (inetAddresses.hasMoreElements()){
+					ip = inetAddresses.nextElement();
+					if(!ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1){ // 外网ip
+						netIp = ip.getHostAddress();
+						finded = true;
+						break;
+					}else if(ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1){ // 内网ip
+						localIp = ip.getHostAddress();
+					}
+				}
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		if(netIp != null && !"".equals(netIp)){
+			return netIp;
+		}else{
+			return localIp;
+		}
+
+	}
+
 	public static String getIpAddr(HttpServletRequest request) {
+
 		if (request == null) {
 			return "unknown";
 		}
@@ -27,9 +62,26 @@ public class IpUtils {
 
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
+			if(ip.equals("127.0.0.1") || ip.equals("0:0:0:0:0:0:0:1")){
+				// 根据网卡取本机配置的IP
+				InetAddress inet = null;
+				try {
+					inet = InetAddress.getLocalHost();
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+				ip = inet.getHostAddress();
+			}
 		}
 
-		return "0:0:0:0:0:0:0:1".equals(ip) ? LOCAL_IP : ip;
+		// 通过多个代理的情况,第一个ip为客户端真实IP
+		if(ip != null && ip.length() > 15){
+			if(ip.indexOf(",") > 0){
+				ip = ip.substring(0,ip.indexOf(","));
+			}
+		}
+
+		return ip;
 	}
 
 	public static boolean internalIp(String ip) {

@@ -18,4 +18,6 @@ web:
   http-path: "/image/**"
   # 映射路径
   file-path: "file:D:/Temp/upload/"
+  # ip地址
+  ip: "127.0.0.1"
 
