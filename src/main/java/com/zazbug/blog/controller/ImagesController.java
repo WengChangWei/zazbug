@@ -5,11 +5,13 @@ import com.zazbug.blog.entity.Result;
 import com.zazbug.blog.entity.StatusCode;
 import com.zazbug.blog.pojo.Images;
 import com.zazbug.blog.service.ImagesService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/images")
 public class ImagesController {

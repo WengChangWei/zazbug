@@ -3,6 +3,7 @@ package com.zazbug.blog.controller;
 import com.zazbug.blog.entity.IpUtils;
 import com.zazbug.blog.entity.Result;
 import com.zazbug.blog.entity.StatusCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 public class UploadController {
 

@@ -3,6 +3,7 @@ package com.zazbug.blog.controller;
 import com.zazbug.blog.entity.*;
 import com.zazbug.blog.pojo.User;
 import com.zazbug.blog.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*")
 public class LoginController {

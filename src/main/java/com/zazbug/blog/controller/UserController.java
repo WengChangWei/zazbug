@@ -4,11 +4,13 @@ import com.zazbug.blog.entity.Result;
 import com.zazbug.blog.entity.StatusCode;
 import com.zazbug.blog.pojo.User;
 import com.zazbug.blog.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {

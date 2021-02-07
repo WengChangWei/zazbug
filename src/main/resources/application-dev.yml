@@ -20,4 +20,10 @@ web:
   file-path: "file:D:/Temp/upload/"
   # ip地址
   ip: "127.0.0.1"
-
+debug: true
+logging:
+  file:
+    path: D:\code\zazbug\log
+  config: classpath:logback-spring-dev.xml
+  level:
+    root: debug

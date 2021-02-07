@@ -20,4 +20,13 @@ web:
   file-path: "file:/usr/local/Temp/upload/"
   # ip地址
   ip: "120.24.29.192"
+debug: true
+logging:
+  pattern:
+    console: '%d -%msg%n'
+  file:
+    path: /usr/local/nginx/html/log
+  config: classpath:logback-spring-pro.xml
+  level:
+    root: error
 
